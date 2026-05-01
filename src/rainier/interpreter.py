@@ -56,6 +56,8 @@ class Interpreter:
         self.classes["Object"] = RubyClass("Object")
         self.globals.set("self", self)
         self.globals.set("puts", lambda *args: print(*args))
+        self.globals.set("print", lambda *args: print(*args, end=""))
+        self.globals.set("p", lambda *args: print(*[repr(arg) for arg in args]))
 
     def eval(self, node: Node, env: Environment | None = None, self_obj: RubyObject | None = None):
         if env is None:

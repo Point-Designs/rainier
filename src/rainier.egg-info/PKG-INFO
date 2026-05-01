@@ -1,3 +1,12 @@
+Metadata-Version: 2.4
+Name: rainier
+Version: 0.1.0
+Summary: A minimal Ruby-inspired scripting language.
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
 # Rainier
 
 Rainier is a minimal Ruby-inspired scripting language with:
@@ -22,15 +31,7 @@ Or start the interactive REPL:
 python -m rainier
 ```
 
-## Examples
-
-Basic output:
-
-```bash
-python -c "from src.rainier.main import run_file; run_file('examples/output_demo.rnr')"
-```
-
-Class example:
+## Example
 
 ```ruby
 class Greeter

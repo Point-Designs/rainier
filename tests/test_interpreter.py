@@ -42,3 +42,9 @@ def test_object_initialization_and_instance_vars():
 def test_method_with_params():
     source = "def add(a, b)\n  a + b\nend\nadd(3, 4)"
     assert run(source) == 7
+
+
+def test_output_functions():
+    # Test that output functions are available (they return None)
+    source = "puts \"hello\"\nprint \"world\"\np 42"
+    assert run(source) is None

@@ -1,0 +1,2 @@
+[console_scripts]
+rainier = rainier.main:main

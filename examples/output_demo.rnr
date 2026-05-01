@@ -1,0 +1,8 @@
+puts "Hello with puts (includes newline)"
+print "Hello with print "
+puts "(continues on same line)"
+p "Hello with p (inspect style)"
+p 42
+p true
+p false
+p nil
