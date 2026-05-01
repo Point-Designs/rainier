@@ -1,0 +1,10 @@
+[project]
+name = "rainier"
+version = "0.1.0"
+description = "A minimal Ruby-inspired scripting language."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+rainier = "rainier.main:main"
