@@ -196,10 +196,9 @@ class Parser:
         if tok[0] == "self":
             self.lexer.next()
             return Self()
-        if tok[0] == "@":
+        if tok[0] == "INSTANCE_VAR":
             self.lexer.next()
-            name = self.expect_ident()
-            return InstanceVar(name)
+            return InstanceVar(tok[1])
         if tok[0] == "new":
             self.lexer.next()
             class_name = self.expect_ident()

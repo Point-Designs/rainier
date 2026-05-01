@@ -5,6 +5,7 @@ Token = tuple[str, str]
 TOKEN_SPECIFICATION = [
     ("NUMBER", r"\d+(?:\.\d+)?"),
     ("STRING", r'"([^"\\]*(?:\\.[^"\\]*)*)"'),
+    ("INSTANCE_VAR", r"@[A-Za-z_][A-Za-z0-9_]*"),
     ("IDENT", r"[A-Za-z_][A-Za-z0-9_]*[!?]?"),
     ("OP", r"<=|>=|==|!=|\+|\-|\*|/|<|>|=|\.|,|\(|\)|\||;"),
     ("NEWLINE", r"\n"),
@@ -14,7 +15,7 @@ TOKEN_SPECIFICATION = [
 
 TOKEN_RE = re.compile("|".join(f"(?P<{name}>{pattern})" for name, pattern in TOKEN_SPECIFICATION))
 KEYWORDS = {
-    "def", "end", "class", "if", "else", "elsif", "then", "do", "while", "return", "true", "false", "nil", "self", "puts", "and", "or", "new"
+    "def", "end", "class", "if", "else", "elsif", "then", "do", "while", "return", "true", "false", "nil", "self", "and", "or", "new"
 }
 
 class Lexer:
@@ -37,6 +38,8 @@ class Lexer:
                     self.tokens.append((value, value))
                 else:
                     self.tokens.append((kind, value))
+            elif kind == "INSTANCE_VAR":
+                self.tokens.append((kind, value[1:]))
             elif kind == "OP":
                 self.tokens.append((value, value))
             elif kind == "NEWLINE":

@@ -72,6 +72,11 @@ class Interpreter:
         return value
 
     def eval_ExpressionStatement(self, node: ExpressionStatement, env: Environment, self_obj: RubyObject | None):
+        if isinstance(node.expression, MemberAccess):
+            receiver = self.eval(node.expression.receiver, env, self_obj)
+            if isinstance(receiver, RubyObject):
+                method_def = receiver.klass.lookup_method(node.expression.name)
+                return self.call_method(receiver, method_def, [])
         return self.eval(node.expression, env, self_obj)
 
     def eval_Assignment(self, node: Assignment, env: Environment, self_obj: RubyObject | None):
