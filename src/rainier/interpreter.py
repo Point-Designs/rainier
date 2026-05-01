@@ -72,16 +72,16 @@ class Interpreter:
         return value
 
     def eval_ExpressionStatement(self, node: ExpressionStatement, env: Environment, self_obj: RubyObject | None):
-        if isinstance(node.expression, MemberAccess):
-            receiver = self.eval(node.expression.receiver, env, self_obj)
-            if isinstance(receiver, RubyObject):
-                method_def = receiver.klass.lookup_method(node.expression.name)
-                return self.call_method(receiver, method_def, [])
         return self.eval(node.expression, env, self_obj)
 
     def eval_Assignment(self, node: Assignment, env: Environment, self_obj: RubyObject | None):
         value = self.eval(node.expression, env, self_obj)
-        env.set(node.name, value)
+        if isinstance(node.target, InstanceVar):
+            if self_obj is None:
+                raise NameError("@ instance variable used outside of an object")
+            self_obj.set(node.target.name, value)
+        else:
+            env.set(node.target.name, value)
         return value
 
     def eval_If(self, node: If, env: Environment, self_obj: RubyObject | None):
@@ -192,7 +192,10 @@ class Interpreter:
     def eval_MemberAccess(self, node: MemberAccess, env: Environment, self_obj: RubyObject | None):
         receiver = self.eval(node.receiver, env, self_obj)
         if isinstance(receiver, RubyObject):
-            return receiver.get(node.name)
+            if node.name in receiver.instance_vars:
+                return receiver.instance_vars[node.name]
+            method_def = receiver.klass.lookup_method(node.name)
+            return self.call_method(receiver, method_def, [])
         if isinstance(receiver, RubyClass):
             return receiver.lookup_method(node.name)
         raise NameError(f"Member access on non-object: {receiver}")

@@ -31,10 +31,10 @@ class Parser:
                 expr = self.parse_expression()
             return Return(expr)
         expr = self.parse_expression()
-        if isinstance(expr, Variable) and self.lexer.peek()[0] == "=":
+        if isinstance(expr, (Variable, InstanceVar)) and self.lexer.peek()[0] == "=":
             self.lexer.next()
             value = self.parse_expression()
-            return Assignment(expr.name, value)
+            return Assignment(expr, value)
         return ExpressionStatement(expr)
 
     def parse_def(self) -> Def:

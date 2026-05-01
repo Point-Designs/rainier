@@ -23,6 +23,22 @@ def test_class_and_method():
     assert run(source) is None
 
 
+def test_object_initialization_and_instance_vars():
+    source = (
+        "class Greeter\n"
+        "  def initialize(name)\n"
+        "    @name = name\n"
+        "  end\n"
+        "  def greet\n"
+        "    @name\n"
+        "  end\n"
+        "end\n"
+        "g = new Greeter(\"World\")\n"
+        "g.greet"
+    )
+    assert run(source) == "World"
+
+
 def test_method_with_params():
     source = "def add(a, b)\n  a + b\nend\nadd(3, 4)"
     assert run(source) == 7

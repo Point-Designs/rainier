@@ -16,7 +16,7 @@ class ExpressionStatement(Node):
 
 @dataclass
 class Assignment(Node):
-    name: str
+    target: Node
     expression: Node
 
 @dataclass
