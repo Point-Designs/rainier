@@ -1,0 +1,25 @@
+{
+  "name": "rainier-language-support",
+  "displayName": "Rainier Language Support",
+  "description": "Language support for the Rainier programming language",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.118.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "rainier",
+      "aliases": ["Rainier", "rainier"],
+      "extensions": [".rainier", ".rnr", ".tahoma", ".tah"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "rainier",
+      "scopeName": "source.rainier",
+      "path": "./syntaxes/rainier.tmLanguage.json"
+    }]
+  }
+}
